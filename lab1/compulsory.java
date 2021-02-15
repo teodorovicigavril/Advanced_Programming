@@ -10,7 +10,7 @@ package l1;
  *
  * @author Teodorovici Gavril-Anton
  */
-public class L1 {
+public class compulsory {
 
     /**
      * @param args the command line arguments
