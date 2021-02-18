@@ -7,7 +7,7 @@ public class bonus {
     public static void main(String[] args) {
 
         Scanner in = new Scanner(System.in);
-        System.out.print("Number of nodes in the tree: ");
+        System.out.print("Numarul de noduri ale arborelui: ");
         int nodes= in.nextInt();
 
         int[][] arbore = new int[nodes+1][nodes+1];
@@ -15,12 +15,14 @@ public class bonus {
         CreareFii(0,arbore,nodes,1);
 
         boolean[] vizitat = new boolean[nodes+1];
-
-
+        
         afisare(arbore,nodes);
         ReprezentareTextualaArbore(0,arbore,nodes,0,vizitat);
     }
 
+    // functia AreCopii primeste ca parametrii un nod, matricea arborelui si numarul de noduri ale arborelui
+    // fiind vorba despre rooted-tree fii nodului x se vor gasi in matricea de adiacenta a arborelui pe linia x
+    // de la pozitia x+1;
     public static boolean AreCopii(int nod, int[][] arbore, int numarNoduri){
         for(int iterator = nod+1; iterator < numarNoduri; iterator ++)
             if(arbore[nod][iterator] == 1)
@@ -28,6 +30,8 @@ public class bonus {
         return false;
     }
 
+    // Functia este recusiva si plecam din primul nod(nodul 0) si in functie de fiecare nod si de faptul ca este nod intern
+    // sau nod frunza vom face diferite afisari, functia este un DFS modificat.
     public  static void ReprezentareTextualaArbore(int nodCurent, int[][] arbore, int numarNoduri, int adancime, boolean[] vizitat){
         vizitat[nodCurent] = true;
         for(int iterator = 1; iterator <= adancime; iterator ++)
@@ -45,6 +49,10 @@ public class bonus {
         }
     }
 
+    // functia CreareFii este o functie recursiva ce creaza arborele si care pleaca dintr-un nod(intial nodul 0) si va alege random
+    // un numar ce va reprezenta numarul de copii a nodului curent, numar ce aparitine intervalului [1,noduriRamase]
+    // urmeaza pasul in care adaug legaturile dintre noduri create apoi cresc numarul de noduri curente si apelez recursiv 
+    // functia doar ca folosind urmatorul nod. Astfel ajung sa creez un rooted-tree cu n noduri.
     public static void CreareFii(int nodCurent, int[][] arbore, int numarNoduri, int numarCurentNoduri){
             int numarFii = (int)(Math.random() * (numarNoduri-numarCurentNoduri) + 1) ;
             if(numarFii != 0) {
