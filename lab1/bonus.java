@@ -2,6 +2,10 @@ package com.company;
 
 import java.util.Scanner;
 
+/**
+ *
+ * @author Teodorovici Gavril-Anton
+ */
 public class bonus {
 
     public static void main(String[] args) {
