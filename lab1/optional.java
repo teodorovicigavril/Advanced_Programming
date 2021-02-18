@@ -26,7 +26,7 @@ public class optional {
             System.exit(-1);
         }
 
-
+        // creez graful random
         int ii, jj;
         int[][] M= new int[n+1][n+1];
         for(ii=1; ii<= n; ii++) {
@@ -43,6 +43,7 @@ public class optional {
             }
         }
 
+        // aici este afisarea matricei folosind geometric shapes, care am comentat-o pentru apelurile > 30k
         /*
         for(ii=1;ii<=n;ii++)
             {   for(jj=1;jj<=n;jj++)
@@ -59,7 +60,9 @@ public class optional {
         boolean[] vizitat = new boolean[n+1];
         int nr_cc = 0;
 
-
+        // Vom numara componentele conexe in variabila nr_cc si voi afisa elementele fiecarei componente conexe(linia 68 care e comentata acum)
+        // Ideea de a afla componentele conexe ale grafului este parcurgand un DFS sau BFS plecand de la primul nod si daca raman noduri nevizitate 
+        // inseamna ca apartin altei componente conexe.
         for(ii=1; ii<=n; ii++) {
             if(vizitat[ii] == false) {
                 nr_cc++;
@@ -73,9 +76,11 @@ public class optional {
 
         int[][] Arobre_Partial = new int[n+1][n+1];
 
+        // Daca avem un graf conex atunci pentru a crea un arbore partial este suficient, din nou, o pacurgere DFS sau BFS
         if(nr_cc == 1) {
             parcurgere(1,vizitat,M,n,Arobre_Partial);
 
+            // Afisarea arborelui partial folosind geometric shapes care este comentata
             /*
             System.out.println("\nArborele partial este: ");
             for(ii=1;ii<=n;ii++)
@@ -96,8 +101,11 @@ public class optional {
         long endTime   = System.nanoTime();
         long totalTime = endTime - startTime;
         System.out.println("\nTimpul in nanosecunde: " + totalTime);
+        // Mai sus se calculeaza timpul in nanosecunde.
     }
 
+    // parcurgere si parcurgere_cc sunt DFS-uri adaptate problemei
+    
     public static void parcurgere(int s, boolean[] vizitat,  int M[][], int n, int ArborePartial[][])
     {
         vizitat[s] = true;
