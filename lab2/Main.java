@@ -1,61 +1,54 @@
 package com.company;
 
+import java.util.ArrayList;
+
+/**
+ *
+ * @author Teodorovici Gavril-Anton
+ */
 
 public class Main {
 
-
-    public enum SourceType {
-        WAREHOUSE, FACTORY;
-    }
-
     public static void main(String[] args) {
 
-        //initCosts(costuri);
+        Factory S0 = new Factory(10,"S1","Factory",0);
+        Warehouse S1 = new Warehouse(35,"S2", "Factory", 1);
+        Warehouse S2 = new Warehouse(25,"S3", "Warehouse", 2);
+        Warehouse S3 = new Warehouse(25,"S4", "Warehouse", 3);
 
-        Source S1 = new Source();
-        Source S2 = new Source();
-        Source S3 = new Source();
+        Destination D0 = new Destination(20,"D1",0);
+        Destination D1 = new Destination(25,"D2",1);
+        Destination D2 = new Destination(25,"D3",2);
+        //Destination D3 = new Destination(25,"D3",2);
+        Destination D3 = new Destination(25,"D4",3);
 
-        S1.setName("S1");
-        S1.setSupply(10);
-        S1.setType(SourceType.FACTORY);
+        ArrayList<Source> sources = new ArrayList<Source>();
+        ArrayList<Destination> destinations = new ArrayList<Destination>();
 
-        S2.setName("S2");
-        S2.setSupply(35);
-        S2.setType(SourceType.WAREHOUSE);
+        sources.add(S0);
+        sources.add(S1);
+        sources.add(S2);
 
-        S3.setName("S3");
-        S3.setSupply(25);
-        S3.setType(SourceType.WAREHOUSE);
+        destinations.add(D0);
+        destinations.add(D1);
+        destinations.add(D2);
 
-        Destination D1 = new Destination();
-        Destination D2 = new Destination();
-        Destination D3 = new Destination();
+       // Problem P1 = new Problem(sources,destinations);
+       // System.out.println(P1);
 
-        D1.setName("D1");
-        D1.setDemand(20);
+       // P1.printingInstance();
+       // P1.addSource(S3);
+       // P1.addDestination(D3);
+       // P1.printingInstance();
 
-        D2.setName("D2");
-        D2.setDemand(25);
-
-        D3.setName("D3");
-        D3.setDemand(25);
-
-
-        Problem P13 = new Problem(S1,1,D3, 3,10,1);
-        Problem P22 = new Problem(S2,2,D2, 2,25,4);
-        Problem P23 = new Problem(S2,2,D3, 3,10,8);
-        Problem P31 = new Problem(S3,3,D1, 1,20,5);
-        Problem P33 = new Problem(S3,3,D3, 3,5,8);
-
-        System.out.println(P13);
-        System.out.println(P22);
-        System.out.println(P23);
-        System.out.println(P31);
-        System.out.println(P33);
-
-        System.out.println("Total cost: " + P13.costTotal);
-
+        Solution Sol = new Solution(sources, destinations);
+        Sol.printingInstance();
+        Sol.feasibleSolution();
+        System.out.println("Total cost: " + Sol.getCostTotal());
+        Sol.vogelMethod();
+        System.out.println("");
+        //Sol.printingInstance();
+        System.out.println("Cost total: " + Sol.getCostTotal());
     }
 
 }
