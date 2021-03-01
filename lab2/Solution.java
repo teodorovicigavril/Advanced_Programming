@@ -1,9 +1,7 @@
 package com.company;
 
-import com.sun.security.jgss.GSSUtil;
-
 import java.util.ArrayList;
-import java.util.Objects;
+
 
 public class Solution extends Problem {
 
@@ -20,16 +18,77 @@ public class Solution extends Problem {
     }
 
     /**
-     * Solutia fezabila, costul total va fi costul de la fiecare sursa la fiecare destinatie
-     * ce se va inmulti cu minimul dintre supply si demand.
+     *
+     * @return functia returneaza elementul maxim din matricea costurilor
+     */
+    public int maxElement(){
+        int maxim = getCosturi().get(0).get(0);
+        for(int i=0;i<getCosturi().size();i++)
+            for(int j=0;j<getCosturi().get(i).size();j++)
+                if(maxim<getCosturi().get(i).get(j))
+                    maxim=getCosturi().get(i).get(j);
+        return maxim;
+    }
+
+    /**
+     *
+     * @param vector un vector de intregi
+     * @param dimension lungimea vectorului
+     * @return functia va returna indexul din vector al celei mai mici valori
+     */
+    public int minElement(ArrayList<Integer> vector, int dimension) {
+        int min = vector.get(0);
+        int index = 0;
+        for (int i = 0; i < dimension; i++)
+            if (min > vector.get(i)) {
+                min = vector.get(i);
+                index = i;
+            }
+        return index;
+    }
+
+    /**
+     * O solutie fezabila, de tipul greedy in care atat timp cat am supply sau demand
+     * voi alege din fiecare linie a matricei de costuri, costul cel mai mic si il voi inmulti
+     * cu minim ul dintre supply(i) si demand(j), unde i si j sunt indecsii de identificare a elementului respectiv
+     * in interiorul matricei. voi aduga rezultatul la calculul total iar apoi voi scadea din supply si demand folosite
+     * minimul dintre ele si apoi voi schimba valoarea costului cu elementulMax din matrice + 1 pentru a nu fi ales din nou
      */
     public void feasibleSolution() {
         int sumCost = 0;
-        for (int i = 0; i < getNr_s(); i++) {
-            for (int j = 0; j < getNr_d(); j++) {
-                int currentCost = Math.min(getSources().get(i).getSupply(), getDestinations().get(j).getDemand());
-                currentCost *= getCosturi().get(i).get(j);
-                sumCost += currentCost;
+        int numarElemente = getSources().size()*getDestinations().size();
+        //elementul maxim din matrice
+        int maximElement = maxElement();
+        //cat timp am supply sau demand
+        while(existsSupplyDemand()>0){
+
+            for(int i=0;i<getDestinations().size();i++) {
+                // aleg minimul liniei
+                int minFromLine = minElement(getCosturi().get(i), getCosturi().get(i).size());
+                int minimSupplyDemand;
+                // supply de 0 si demand de 0 nu luam in calcul pentru aflarea minimului dintre supply si demand
+                if(getSources().get(i).getSupply() == 0)
+                    minimSupplyDemand = getDestinations().get(minFromLine).getDemand();
+                else if(getDestinations().get(minFromLine).getDemand() == 0)
+                    minimSupplyDemand =getSources().get(i).getSupply();
+                    else minimSupplyDemand = Math.min(getSources().get(i).getSupply(),getDestinations().get(minFromLine).getDemand());
+
+                //daca am ramas cu un singur element atunci voi aduna supply ul si demandul elementului si voi inmulti cu valoarea elementului(costul)
+                if(numarElemente == 1){
+                    sumCost += getCosturi().get(i).get(minFromLine) * (getSources().get(i).getSupply()+getDestinations().get(minFromLine).getDemand());
+                }else {
+                    //daca nu, la costul total se adauga valoarea costului*minimul dintre supply si demand
+                    sumCost += getCosturi().get(i).get(minFromLine) * minimSupplyDemand;
+                }
+                // schimb valoarea costului pentru elementul curent pentru a iesi din calcul
+                getCosturi().get(i).set(minFromLine,maximElement+1);
+                // actualizez supply ul si demand ul
+                if(getSources().get(i).getSupply() != 0)
+                    getSources().get(i).setSupply(getSources().get(i).getSupply()-minimSupplyDemand);
+                if(getDestinations().get(minFromLine).getDemand() != 0)
+                getDestinations().get(minFromLine).setDemand(getDestinations().get(minFromLine).getDemand()-minimSupplyDemand);
+
+                numarElemente--;
             }
         }
         setCostTotal(sumCost);
@@ -210,7 +269,8 @@ public class Solution extends Problem {
 
             //Daca mai am doar un element, atunci voi aduna la costul total costul respectiv inmultit cu supply ul/demand ul respectiv
         if(nrElemente == 1){
-           sumCost += getSources().get(0).getSupply() * getCosturi().get(0).get(0);
+            System.out.println(getSources().get(0).getName() + "->" + getDestinations().get(0).getName() + ": " + getSources().get(0).getSupply() + " units * cost " +  getCosturi().get(0).get(0) + " = " + getSources().get(0).getSupply() * getCosturi().get(0).get(0));
+            sumCost += getSources().get(0).getSupply() * getCosturi().get(0).get(0);
             break;
         }
         // vectorul de Penalty este actualizat
@@ -237,7 +297,7 @@ public class Solution extends Problem {
             getDestinations().get(index).setDemand(getDestinations().get(index).getDemand()-minim);
             // actualizez costul total
             sumCost += minim * getCosturi().get(maxPenalty).get(index);
-
+            System.out.println(getSources().get(maxPenalty).getName() + "->" + getDestinations().get(index).getName() + ": " + minim + " units * cost " +  getCosturi().get(maxPenalty).get(index) + " = " + getCosturi().get(maxPenalty).get(index)*minim);
             // daca am ramas cu doua elemente
             if(nrElemente <= 2){
                 //elimin un element din nr total al elementelor
@@ -270,6 +330,7 @@ public class Solution extends Problem {
             getSources().get(index).setSupply(getSources().get(index).getSupply()-minim);
             // actualizez suma
             sumCost += minim*getCosturi().get(index).get(maxPenalty-lines);
+            System.out.println( getSources().get(index).getName() + "->" +  getDestinations().get(maxPenalty-lines).getName() + ": " + minim + " units * cost " +  getCosturi().get(index).get(maxPenalty-lines) + " = " + getCosturi().get(index).get(maxPenalty-lines)*minim);
 
             // daca am doua sau mai putin de doua elemente ramase
             if(nrElemente <= 2){
