@@ -1,6 +1,6 @@
 package com.company;
 
-public class Restaurant extends Location implements Clasifiable{
+public class Restaurant extends Location implements Clasifiable {
     private int numarMeniuri;
     private String meniulZilei;
     private int rank;

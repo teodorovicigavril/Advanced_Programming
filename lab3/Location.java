@@ -3,7 +3,7 @@ package com.company;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public abstract class Location  implements Comparable<Location>{
+public abstract class Location implements Comparable<Location> {
     private String description;
     private double aria;
     private String name;
@@ -70,13 +70,34 @@ public abstract class Location  implements Comparable<Location>{
                 '}';
     }
 
-    @Override
+   /* @Override
     public int compareTo(Location other) {
-        if(this.name == null || other.name == null){
+        if (this.name == null || other.name == null) {
             System.out.println("Nume null!");
             return -2;
         }
         return this.name.compareTo(other.name);
         //not safe, check if name is null before
+    }*/
+
+    @Override
+    public int compareTo(Location other) {
+
+        if(this instanceof Visitable && other instanceof Visitable){
+            if(((Visitable) this).getOpeningTime() != null && ((Visitable) other).getOpeningTime() != null){
+                return ((Visitable) this).getOpeningTime().compareTo(((Visitable) other).getOpeningTime());
+            }else{
+                System.out.println("Null data!!!..");
+                return 0;
+            }
+        }else{
+            System.out.println("Different interfaces, compering now by name!");
+            if(this.getName() != null && other.getName() != null)
+                return this.name.compareTo(other.name);
+            else{
+                System.out.println("Null name!");
+                return 0;
+            }
+        }
     }
 }

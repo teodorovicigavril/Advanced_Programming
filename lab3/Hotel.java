@@ -1,6 +1,6 @@
 package com.company;
 
-public class Hotel extends Location implements Clasifiable{
+public class Hotel extends Location implements Clasifiable {
     private int numarCamere;
     private int numarStele;
     private int rank;

@@ -1,6 +1,8 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class City {
     private ArrayList<Location> nodes;
@@ -34,5 +36,19 @@ public class City {
         return "City{" +
                 "nodes=" + nodes +
                 '}';
+    }
+
+    //Optional
+    public void displayVisitableNotPayableLocations() {
+        System.out.println("Location that are visitable and not payable, sorted by opening hour: ");
+        ArrayList<Location> justVisitable = new ArrayList<Location>();
+        for (int i = 0; i < nodes.size(); i++) {
+            if(getNodes().get(i) instanceof Visitable && !(getNodes().get(i) instanceof Payable))
+                justVisitable.add(getNodes().get(i));
+        }
+        Collections.sort(justVisitable);
+        for(int i = 0; i < justVisitable.size(); i++){
+            System.out.println(justVisitable.get(i).getName());
+        }
     }
 }

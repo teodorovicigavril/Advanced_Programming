@@ -2,7 +2,7 @@ package com.company;
 
 import java.time.LocalTime;
 
-public class Museum extends Location implements Visitable,Payable{
+public class Museum extends Location implements Visitable, Payable {
     private int numarExponate;
     private String domeniu;
     private LocalTime openingTime, closingTime;
@@ -26,8 +26,8 @@ public class Museum extends Location implements Visitable,Payable{
 
     public Museum() {
         this.ticketPrice = 0;
-        this.openingTime = LocalTime.of(9, 30);
-        this.closingTime = LocalTime.of(17, 00);
+        this.openingTime = openTime();
+        this.closingTime = closeTime();
         this.numarExponate = 0;
         this.domeniu = "";
     }

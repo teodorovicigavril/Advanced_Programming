@@ -1,8 +1,9 @@
 package com.company;
 
+import java.time.Duration;
 import java.time.LocalTime;
 
-public class Church extends Location implements Visitable{
+public class Church extends Location implements Visitable {
     private int numarMembrii;
     private String verset;
     private LocalTime openingTime, closingTime;
@@ -10,8 +11,8 @@ public class Church extends Location implements Visitable{
     public Church() {
         this.numarMembrii = 0;
         this.verset = "";
-        this.openingTime = LocalTime.of(9, 00);
-        this.closingTime = LocalTime.of(12, 00);
+        this.openingTime = openTime();
+        this.closingTime = closeTime();
     }
 
     public Church(int numarMembrii, String verset, LocalTime openingTime, LocalTime closingTime) {
@@ -56,12 +57,13 @@ public class Church extends Location implements Visitable{
     }
 
     @Override
-    public LocalTime getOpeningTime() {
-        return null;
+    public  LocalTime getOpeningTime() {
+        return openingTime;
     }
 
     @Override
-    public LocalTime getClosingTime() {
-        return null;
+    public  LocalTime getClosingTime() {
+        return closingTime;
     }
+
 }
