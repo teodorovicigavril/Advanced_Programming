@@ -29,11 +29,11 @@ public class Main {
 
         catalog.list();
 
-        CatalogUtil catalogUtil = new CatalogUtil();
-        catalogUtil.save(catalog);
+        //CatalogUtil catalogUtil = new CatalogUtil();
+        CatalogUtil.save(catalog);
 
         Catalog catalog1;
-        catalog1 = catalogUtil.load(catalog.getPath());
+        catalog1 = CatalogUtil.load(catalog.getPath());
 
         catalog1.list();
     }
