@@ -1,8 +1,8 @@
 package com.company;
 
-public class Song extends Entry{
-    public Song(String name, String path) {
-        super(name, path);
-        this.setType(1);
+public class Song extends Item{
+
+    public Song(String id, String name, String path) throws InvalidCatalogException {
+        super(id, name, path);
     }
 }

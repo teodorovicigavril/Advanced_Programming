@@ -1,14 +1,20 @@
 package com.company;
 
+import java.io.IOException;
+
 public class Main {
 
-    public static void main(String[] args) {
-	// write your code here
+    public static void main(String[] args) throws IOException, InvalidCatalogException, ClassNotFoundException {
 
-        Song s1 = new Song("s1", "/test");
-        Song s2 = new Song("s2", "/test");
-        Book b1 = new Book("b1", "/test");
-        Book b2 = new Book("b22", "/test");
+        Song s1 = new Song("1","s1", "/test");
+        Song s2 = new Song("2","s2", "/test");
+        Image b1 = new Image("3","b1", "/test");
+        Image b2 = new Image("4","b22", ".\\test.png");
+
+            // TESTING EXCEPTIONS
+        //s1.setName("   ");
+        //s1.setReleaseDate(2023,12,24);
+        //System.out.println(s1.toString());
 
         System.out.println("------");
         Catalog catalog = new Catalog();
@@ -17,10 +23,18 @@ public class Main {
         catalog.add(b1);
         catalog.add(b2);
 
+        //catalog.play(b2);
+        catalog.setPath(".\\output.txt");
+        catalog.setName("Catalog 1");
 
         catalog.list();
-        catalog.save("output.txt");
-        catalog.load("C:\\Users\\40756\\Desktop\\gabii\\iasi\\ANUL 2\\sem 2\\ap\\lab5\\src\\com\\company\\output.txt");
-        catalog.list();
+
+        CatalogUtil catalogUtil = new CatalogUtil();
+        catalogUtil.save(catalog);
+
+        Catalog catalog1;
+        catalog1 = catalogUtil.load(catalog.getPath());
+
+        catalog1.list();
     }
 }
