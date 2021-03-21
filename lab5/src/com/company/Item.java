@@ -42,6 +42,10 @@ public abstract class Item implements Serializable {
         this.path = path;
     }
 
+    public Item() {
+
+    }
+
     public void setId(String id) throws InvalidCatalogException {
         if(id == null || id.contains("[a-zA-Z]+") || id.trim().equals("")){
             throw new InvalidCatalogException("Invalid id! Don't use letters and don't let it blank!");

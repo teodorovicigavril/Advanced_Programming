@@ -20,6 +20,7 @@ public class CatalogUtil {
             ObjectInputStream in = new ObjectInputStream(fis)) {
             catalog = (Catalog)in.readObject();
         }
+        System.out.println("Successfully load!");
         return catalog;
     }
 

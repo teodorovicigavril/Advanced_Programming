@@ -52,10 +52,22 @@ public class Catalog implements Serializable {
     }
 
     public void play(Item item){
+        if(item != null)
+        {
+
         File file = null;
         for(Item index: this.items){
-            if(index.getName().equals(item.getName()))
-                file = new File(index.getPath());
+            if(item.getName() == null){
+                System.out.println("Null name, dont know what to play!");
+                return;
+            }else
+            if(index.getName().equals(item.getName())) {
+
+                if (item.getPath() == null) {
+                    System.out.println("Path null, nothing to play!");
+                    return;
+                }else file = new File(index.getPath());
+            }
         }
 
             if(!Desktop.isDesktopSupported()){
@@ -65,15 +77,52 @@ public class Catalog implements Serializable {
 
         try {
             Desktop desktop = Desktop.getDesktop();
-            if (file.exists()) desktop.open(file);
+             desktop.open(file);
 
         } catch( IOException e){
             System.out.println("error");
             e.printStackTrace();
+        }}
+        else
+        {
+            System.out.println("Null item!!!!");
         }
     }
 
+    public void play(Catalog catalog, Item item){
+        if(item != null)
+        {
 
+            File file = null;
+            for(Item index: catalog.items){
+                if(item.getName() == null){
+                    System.out.println("Null name, dont know what to play!");
+                    return;
+                }else
+                if(index.getName().equals(item.getName())) {
+
+                        file = new File(index.getPath());
+                }
+            }
+
+            if(!Desktop.isDesktopSupported()){
+                System.out.println("Desktop is not supported");
+                return;
+            }
+
+            try {
+                Desktop desktop = Desktop.getDesktop();
+                desktop.open(file);
+
+            } catch( IOException e){
+                System.out.println("error");
+                e.printStackTrace();
+            }}
+        else
+        {
+            System.out.println("Null item!!!!");
+        }
+    }
 
     @Override
     public String toString() {

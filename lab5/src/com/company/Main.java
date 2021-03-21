@@ -28,13 +28,22 @@ public class Main {
         catalog.setName("Catalog 1");
 
         catalog.list();
-
-        //CatalogUtil catalogUtil = new CatalogUtil();
+       // CatalogUtil catalogUtil = new CatalogUtil();
         CatalogUtil.save(catalog);
 
-        Catalog catalog1;
-        catalog1 = CatalogUtil.load(catalog.getPath());
+        Catalog catalog1 = new Catalog();
+        catalog1.setPath(".\\auxFile.txt");
+        Image imageAux = new Image("5","testImg", ".\\test.png");
+        catalog1.add(imageAux);
+        //catalog1 = CatalogUtil.load(catalog.getPath());
+        CatalogUtil.save(catalog1);
 
         catalog1.list();
+
+        System.out.println("From shell -------------");
+        Shell shell = new Shell(catalog);
+        shell.getCatalog().list();
+        shell.run();
+        shell.getCatalog().list();
     }
 }
