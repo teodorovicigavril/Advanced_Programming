@@ -59,8 +59,8 @@ public class Shell {
                     if(command.toLowerCase(Locale.ROOT).equals("play")){
                         new PlayCommand().executeCommand(this.catalog,arguments);
                     }
-                    if(!command.toLowerCase(Locale.ROOT).equals("play") || !command.toLowerCase(Locale.ROOT).equals("load") ||
-                    !command.toLowerCase(Locale.ROOT).equals("save") || !command.toLowerCase(Locale.ROOT).equals("list") || !command.toLowerCase(Locale.ROOT).equals("add")){
+                    if(!command.toLowerCase(Locale.ROOT).equals("play") && !command.toLowerCase(Locale.ROOT).equals("load") &&
+                    !command.toLowerCase(Locale.ROOT).equals("save") && !command.toLowerCase(Locale.ROOT).equals("list") && !command.toLowerCase(Locale.ROOT).equals("add")){
                         throw new InvalidCatalogException("Command: " + command + " unknown!!!");
                     }
                     System.out.println("\nChoose a command with specific parameters!\n" +
