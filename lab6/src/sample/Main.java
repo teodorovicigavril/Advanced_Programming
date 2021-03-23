@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -25,22 +26,24 @@ public class Main extends Application {
         Label label_top = new Label("this is BorderPane top");
         label_top.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
         label_top.setMinHeight(height*0.1);
-        
+
 
         Label label_bottom = new Label("this is BorderPane bottom");
         label_bottom.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
         label_bottom.setMinHeight(height*0.1);
 
 
-        // create a BorderPane
-        BorderPane border_pane = new BorderPane(label_center, label_top, null, label_bottom, null);
+        ConfigPanel configPanel = new ConfigPanel();
+        ControlPanel controlPanel = new ControlPanel();
 
+        // create a BorderPane
+        BorderPane border_pane = new BorderPane(label_center, configPanel.getBox(), null, controlPanel.getBox(), null);
         // set alignment
-       // BorderPane.setAlignment(label_top, Pos.CENTER);
+        //BorderPane.setAlignment(border_pane.getTop(), Pos.CENTER);
        // BorderPane.setAlignment(label_bottom, Pos.CENTER);
-        border_pane.getBottom().setStyle("-fx-background-color: #d65f5f");
+        border_pane.getBottom().setStyle("-fx-background-color: #d65f5f; -fx-alignment: center");
         border_pane.setPadding(new Insets(5,5,5,5));
-        border_pane.getTop().setStyle(" -fx-background-color: #c15757");
+        border_pane.getTop().setStyle(" -fx-background-color: #c15757; -fx-alignment: center");
         border_pane.getCenter().setStyle("-fx-background-color: #c1c1db");
 
 

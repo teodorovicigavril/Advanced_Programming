@@ -1,32 +1,28 @@
 package sample;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.io.File;
-import java.io.IOException;
+import javafx.geometry.Insets;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 
-public class ControlPanel extends JPanel {
-    final MainFrame frame;
-    JButton saveBtn = new JButton("Save");
-    //create all buttons (Load, Reset, Exit)
- //...TODO
-    public ControlPanel(MainFrame frame) {
-        this.frame = frame; init();
+public class ControlPanel {
+    private HBox box = new HBox();
+
+    public ControlPanel(){
+        Button load = new Button("Load");
+        Button save = new Button("Save");
+        Button reset = new Button("Reset");
+        Button exit = new Button("Exit");
+
+
+        box.setSpacing(10);
+        box.setPadding(new Insets(15));
+
+        box.getChildren().addAll(load,save,reset,exit);
     }
-    private void init() {
-        //change the default layout manager (just for fun)
-        setLayout(new GridLayout(1, 4));
-        //add all buttons ...TODO
-        //configure listeners for all buttons
-        saveBtn.addActionListener(this::save);
- //...TODO
+
+    public HBox getBox() {
+        return box;
     }
-    private void save(ActionEvent e) {
-        try {
-            ImageIO.write(frame.canvas.image, "PNG", new File("d:/test.png"));
-        } catch (IOException ex) { System.err.println(ex); }
-    }
- //...TODO
 }
