@@ -39,6 +39,10 @@ public class DrawingPanel {
         return group;
     }
 
+    public void setBox(BorderPane box) {
+        this.group = box;
+    }
+
     public void addEventHandler(BorderPane parent, Node node) {
         node.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent me) -> {
             if(me.getButton().equals(MouseButton.SECONDARY)) {

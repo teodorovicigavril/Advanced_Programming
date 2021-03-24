@@ -31,7 +31,7 @@ public class Main extends Application {
         border_pane.getCenter().setStyle("-fx-background-color: #c1c1db");
 
 
-        primaryStage.setTitle("Welcome back :)");
+        primaryStage.setTitle("Best GeometryDrawing :)");
         Scene scene = new Scene(border_pane, width, height);
         primaryStage.setScene(scene);
         primaryStage.show();
