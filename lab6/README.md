@@ -4,7 +4,7 @@ Compulsory:
   - canvas is the place you can draw
   - control panel contains buttons for saving, loading, reset and exit.
  
-Bonus:
+Optional:
   - you can delete shapes by right clicking them
   - there are different confiPanels depanding on what you want to draw
   - you can draw freely and for this mode you can see a simple recognition system: line, circle or unkown shape.
