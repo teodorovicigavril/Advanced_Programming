@@ -34,12 +34,12 @@ public class ControlPanel {
         new EventHandler<ActionEvent>() {
             @Override
             public void handle(final ActionEvent e) {
+                // deschidem FileChooser pentru a incarca un fisier
                 final FileChooser fileChooser = new FileChooser();
                 final File selectedFile = fileChooser.showOpenDialog(box.getScene().getWindow());
                 if (selectedFile != null) {
                     selectedFile.getAbsolutePath();
                 }
-                //System.out.println(selectedFile);
 
                 Image image = null;
                 try {
@@ -73,11 +73,13 @@ public class ControlPanel {
             new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(final ActionEvent e) {
+                    // deschidem directorul in care se va salva imaginea
                     final DirectoryChooser directoryChooser = new DirectoryChooser();
                     final File selectedDirectory = directoryChooser.showDialog(box.getScene().getWindow());
                     if (selectedDirectory != null) {
                         selectedDirectory.getAbsolutePath();
                     }
+                    // se ceeaza imaginea si se salveaza
                     WritableImage image = drawingPanel.getBox().snapshot( new SnapshotParameters(), null);
                     File file = new File(selectedDirectory + "\\yourArt.png");
                     try {
@@ -89,10 +91,12 @@ public class ControlPanel {
         });
 
         reset.setOnAction(e ->{
+            // resetare canvas
             drawingPanel.getBox().getChildren().clear();
         });
 
         exit.setOnAction(e ->{
+            //exist
             Window primaryStage = box.getScene().getWindow();
             primaryStage.hide();
         });
