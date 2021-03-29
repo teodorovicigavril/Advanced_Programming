@@ -98,8 +98,7 @@ public class DrawingPanel {
                         for (int index = 1; index < path.getElements().size(); index++) {
                             double distanceCurrent = Math.sqrt((centerY - ((LineTo) (path.getElements().get(index))).getY()) * (centerY - ((LineTo) (path.getElements().get(index))).getY()) +
                                     (centerX - ((LineTo) (path.getElements().get(index))).getX()) * (centerX - ((LineTo) (path.getElements().get(index))).getX()));
-                            System.out.println("Distance current: " + distanceCurrent);
-                            System.out.println("Distance: " + distance);
+                           
                             if (Math.abs(distanceCurrent - distance) > 30) {
                                 isCircle = 0;
                             }
