@@ -7,30 +7,27 @@ public class Board{
     private int n;
     private ArrayList<Token> tokens;
 
-    public synchronized Token getToken(){
-        Main.flag =1;
+    public synchronized Token getToken() throws InterruptedException {
+        // METODA MAI SIMPLA DE A RETURNA UN TOKEN(NU STIU DACA SI LA FEL DE CORECTA)
+//        Main.flag =1;
+//        Random random = new Random();
+//        Token token = Main.board.getTokens().get(random.nextInt(Main.board.getTokens().size()));
+//        Main.board.getTokens().remove(token);
+//        Main.flag = 0;
+
+        //return token;
+
+        while(Main.flag == 0 && Main.board.getTokens().size()>0){
+            wait();
+        }
         Random random = new Random();
+
         Token token = Main.board.getTokens().get(random.nextInt(Main.board.getTokens().size()));
         Main.board.getTokens().remove(token);
         Main.flag = 0;
-
-
-//        ArrayList<Token> aux = new ArrayList<>();
-//        //synchronized(this) {
-//           // while(Main.board.n > 0) {
-//                System.out.println("Main n: " + Main.board.getTokens().size());
-//                Random random1 = new Random();
-//                int aux1 = (random1.nextInt(Main.board.getTokens().size()));
-//                Token auxToken = Main.board.getTokens().get(aux1);
-//                aux.add(auxToken);
-//                Main.board.getTokens().remove(auxToken);
-//                //Main.board.getTokens().removeIf(index -> index == auxToken);
-//                Main.board.n --;
-//                //Main.board.n--;
-//      //      }
-            return token;
-
-     //   }
+        notifyAll();
+        //System.out.println("---- " + token.toString());
+        return token;
     }
 
     public Board(){

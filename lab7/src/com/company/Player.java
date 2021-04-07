@@ -9,14 +9,33 @@ public class Player implements Runnable{
     private ArrayList<Token> tokens;
 
     @Override
-    public void run(){
-        if(Main.board.getTokens().size() > 0 && Main.flag == 0)
-            tokens.add(Main.board.getToken());
+    public synchronized void run(){
+        // METODA MAI SIMPLA DE A EXTRAGE TOKENS(NU STIU DACA SI LA FEL DE CORECTA)
+//        if(Main.board.getTokens().size() > 0 && Main.flag == 0) {
 //            try {
-//                sleep(100);
+//                tokens.add(Main.board.getToken());
 //            } catch (InterruptedException e) {
 //                e.printStackTrace();
 //            }
+//        }
+
+        while(Main.flag == 1 && Main.board.getTokens().size()>0){
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            Main.flag = 1;
+            if(Main.board.getTokens().size() != 0)
+            tokens.add(Main.board.getToken());
+            else
+                this.
+            notifyAll();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public Player(String name){
