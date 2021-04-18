@@ -1,7 +1,8 @@
 package kiwi;
 
 
-import java.sql.Date;
+import kiwi.model.Genre;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -1,19 +1,28 @@
 package kiwi;
 
+import com.opencsv.CSVReader;
+import kiwi.model.Actor;
+import kiwi.model.Director;
+import kiwi.model.Genre;
+import kiwi.model.Movie;
+
+import java.io.*;
 import java.sql.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+
+
 
 import static java.sql.Types.NULL;
 
 public class Main {
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException, FileNotFoundException {
 
 
         Singleton singleton = Singleton.getInstance();
 
         try {
+            DirectorDAO directorDAO = new DirectorDAO();
+            ActorDAO actorDAO = new ActorDAO();
             MovieDAO movieDAO = new MovieDAO();
             //movieDAO.findByName("friday13");
             GenreDAO genreDAO = new GenreDAO();
@@ -25,7 +34,76 @@ public class Main {
            // Genre genre = new Genre(NULL,"SF");
            // genreDAO.createGenre(genre);
 
-        } catch(SQLException e) {
+            try {
+
+                // Create an object of filereader
+                // class with CSV file as a parameter.
+                FileReader filereader = new FileReader("C:\\Users\\40756\\Desktop\\gabii\\iasi\\ANUL 2\\sem 2\\ap\\lab8\\IMDb movies.csv");
+
+                // create csvReader object passing
+                // file reader as a parameter
+                CSVReader csvReader = new CSVReader(filereader);
+                String[] nextRecord;
+
+                int size=30;
+                int index;
+                // we are going to read data line by line
+                while ((nextRecord = csvReader.readNext()) != null && size>0) {
+                    index=0;
+                    size--;
+                    if(size != 29){
+                        Movie movie = new Movie();
+                        Genre genre = new Genre();
+                        Actor actor = new Actor();
+                        Director director = new Director();
+                        for (String cell : nextRecord) {
+
+                            if(index == 1) {
+                                movie.id = NULL;
+                                movie.title = cell;
+                            }
+                            if(index == 4)
+                                movie.release_date = Date.valueOf(cell);
+                            if(index == 5) {
+                                genre.id = NULL;
+                                genre.name = cell;
+                            }
+                            if(index == 6){
+                                movie.duration = Double.valueOf(cell);
+                            }
+                            if(index == 9){
+                                director.nume = cell;
+                                director.id_movie = movie.id;
+                            }
+                            if(index == 12){
+                                actor.id_movie = movie.id;
+                                actor.nume = cell;
+                            }
+                            if(index == 14){
+                                movie.score = Double.valueOf(cell);
+                            }
+
+                            index++;
+
+                        }
+
+                        movieDAO.createMovie(movie);
+                        genreDAO.createGenre(genre);
+                        actor.id_movie = movieDAO.findByName(movie.title).get(0).id;
+                        actorDAO.createActor(actor);
+                        director.id_movie = movieDAO.findByName(movie.title).get(0).id;
+                        directorDAO.createDirector(director);
+
+                        System.out.println();
+                    }
+                }
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+    } catch(SQLException e) {
             System.err.println("Cannot connect to DB: " + e);
         } finally {
             if (singleton.con != null) singleton.con.close() ;

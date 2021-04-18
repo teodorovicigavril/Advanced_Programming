@@ -1,6 +1,8 @@
 package kiwi;
 
 
+import kiwi.model.Movie;
+
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
