@@ -13,9 +13,8 @@ public class ActorDAO {
 
     public Actor findByMovieId(Integer id) throws SQLException {
         Actor actor = new Actor();
-        Singleton singleton = new Singleton();
 
-        PreparedStatement selectStatement = singleton.con.prepareStatement("SELECT * FROM actors WHERE id_movie = ?");
+        PreparedStatement selectStatement = Singleton.getInstance().con.prepareStatement("SELECT * FROM actors WHERE id_movie = ?");
         selectStatement.setInt(1,id);
         ResultSet resultSet = selectStatement.executeQuery();
 
@@ -29,9 +28,8 @@ public class ActorDAO {
 
     public ArrayList<Actor> findByName(String name) throws SQLException {
         ArrayList<Actor> actors = new ArrayList<Actor>();
-        Singleton singleton = new Singleton();
 
-        PreparedStatement selectStatement = singleton.con.prepareStatement("SELECT * FROM actors WHERE nume = ?");
+        PreparedStatement selectStatement = Singleton.getInstance().con.prepareStatement("SELECT * FROM actors WHERE nume = ?");
         selectStatement.setString(1,name);
         ResultSet resultSet = selectStatement.executeQuery();
 
@@ -46,17 +44,16 @@ public class ActorDAO {
     }
 
     public void createActor(Actor actor) throws SQLException {
-        Singleton singleton = new Singleton();
 
-        singleton.con.setAutoCommit(false);
-        PreparedStatement selectStatement = singleton.con.prepareStatement("INSERT INTO actors VALUES( " + " ?, ?)");
+        Singleton.getInstance().con.setAutoCommit(false);
+        PreparedStatement selectStatement = Singleton.getInstance().con.prepareStatement("INSERT INTO actors VALUES( " + " ?, ?)");
         selectStatement.setString(1, actor.nume);
         selectStatement.setInt(2, actor.id_movie);
         selectStatement.addBatch();
 
         int[] updateCounts = selectStatement.executeBatch();
-        singleton.con.commit();
-        singleton.con.setAutoCommit(true);
+        Singleton.getInstance().con.commit();
+        Singleton.getInstance().con.setAutoCommit(true);
         System.out.println("Actor " + actor.nume + " successfully created!");
     }
 }

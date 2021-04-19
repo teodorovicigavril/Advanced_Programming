@@ -12,7 +12,7 @@ class Singleton
 
     Connection con;
 
-    Singleton() throws SQLException {
+    private Singleton() throws SQLException {
         con = DriverManager.getConnection("jdbc:mysql://localhost/test", "root", "");
     }
 

@@ -13,9 +13,8 @@ public class MovieDAO {
 
     public Movie findById(Integer id) throws SQLException {
         Movie movie = new Movie();
-        Singleton singleton = new Singleton();
 
-        PreparedStatement selectStatement = singleton.con.prepareStatement("SELECT * FROM movies WHERE id = ?");
+        PreparedStatement selectStatement = Singleton.getInstance().con.prepareStatement("SELECT * FROM movies WHERE id = ?");
         selectStatement.setInt(1,id);
         ResultSet resultSet = selectStatement.executeQuery();
 
@@ -32,9 +31,9 @@ public class MovieDAO {
 
     public ArrayList<Movie> findByName(String name) throws SQLException {
         ArrayList<Movie> movies = new ArrayList<Movie>();
-        Singleton singleton = new Singleton();
 
-        PreparedStatement selectStatement = singleton.con.prepareStatement("SELECT * FROM movies WHERE title = ?");
+
+        PreparedStatement selectStatement = Singleton.getInstance().con.prepareStatement("SELECT * FROM movies WHERE title = ?");
         selectStatement.setString(1,name);
         ResultSet resultSet = selectStatement.executeQuery();
 
@@ -53,10 +52,9 @@ public class MovieDAO {
     }
 
     public void createMovie(Movie movie) throws SQLException {
-        Singleton singleton = new Singleton();
 
-        singleton.con.setAutoCommit(false);
-        PreparedStatement selectStatement = singleton.con.prepareStatement("INSERT INTO movies VALUES( " + " ?, ?, ?, ?, ?)");
+        Singleton.getInstance().con.setAutoCommit(false);
+        PreparedStatement selectStatement = Singleton.getInstance().con.prepareStatement("INSERT INTO movies VALUES( " + " ?, ?, ?, ?, ?)");
         selectStatement.setInt(1, movie.id);
         selectStatement.setString(2, movie.title);
         selectStatement.setDate(3, (Date) movie.release_date);
@@ -65,8 +63,8 @@ public class MovieDAO {
         selectStatement.addBatch();
 
         int[] updateCounts = selectStatement.executeBatch();
-        singleton.con.commit();
-        singleton.con.setAutoCommit(true);
+        Singleton.getInstance().con.commit();
+        Singleton.getInstance().con.setAutoCommit(true);
         System.out.println("Movie " + movie.title + " successfully created!");
     }
 }

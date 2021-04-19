@@ -12,9 +12,8 @@ public class GenreDAO {
 
     public Genre findById(Integer id) throws SQLException {
         Genre genre = new Genre();
-        Singleton singleton = new Singleton();
 
-        PreparedStatement selectStatement = singleton.con.prepareStatement("SELECT * FROM genres WHERE id = ?");
+        PreparedStatement selectStatement = Singleton.getInstance().con.prepareStatement("SELECT * FROM genres WHERE id = ?");
         selectStatement.setInt(1,id);
         ResultSet resultSet = selectStatement.executeQuery();
 
@@ -29,9 +28,8 @@ public class GenreDAO {
 
     public ArrayList<Genre> findByName(String name) throws SQLException {
         ArrayList<Genre> genres = new ArrayList<Genre>();
-        Singleton singleton = new Singleton();
 
-        PreparedStatement selectStatement = singleton.con.prepareStatement("SELECT * FROM genres WHERE name = ?");
+        PreparedStatement selectStatement = Singleton.getInstance().con.prepareStatement("SELECT * FROM genres WHERE name = ?");
         selectStatement.setString(1,name);
         ResultSet resultSet = selectStatement.executeQuery();
 
@@ -47,17 +45,16 @@ public class GenreDAO {
     }
 
     public void createGenre(Genre genre) throws SQLException {
-        Singleton singleton = new Singleton();
 
-        singleton.con.setAutoCommit(false);
-        PreparedStatement selectStatement = singleton.con.prepareStatement("INSERT INTO genres VALUES( " + " ?, ?)");
+        Singleton.getInstance().con.setAutoCommit(false);
+        PreparedStatement selectStatement = Singleton.getInstance().con.prepareStatement("INSERT INTO genres VALUES( " + " ?, ?)");
         selectStatement.setInt(1, genre.id);
         selectStatement.setString(2, genre.name);
         selectStatement.addBatch();
 
         int[] updateCounts = selectStatement.executeBatch();
-        singleton.con.commit();
-        singleton.con.setAutoCommit(true);
+        Singleton.getInstance().con.commit();
+        Singleton.getInstance().con.setAutoCommit(true);
         System.out.println("Genre " + genre.name + " successfully created!");
     }
 }
