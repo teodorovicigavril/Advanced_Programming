@@ -2,8 +2,8 @@ package kiwi.model;
 
 public class Director {
 
-    public String nume;
-    public Integer id_movie;
+    private String nume;
+    private Integer id_movie;
 
     public Director() {
     }
@@ -19,5 +19,21 @@ public class Director {
                 "nume='" + nume + '\'' +
                 ", id_movie=" + id_movie +
                 '}';
+    }
+
+    public void setNume(String nume) {
+        this.nume = nume;
+    }
+
+    public void setId_movie(Integer id_movie) {
+        this.id_movie = id_movie;
+    }
+
+    public String getNume() {
+        return nume;
+    }
+
+    public Integer getId_movie() {
+        return id_movie;
     }
 }

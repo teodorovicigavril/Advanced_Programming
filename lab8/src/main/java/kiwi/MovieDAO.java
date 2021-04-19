@@ -19,11 +19,11 @@ public class MovieDAO {
         ResultSet resultSet = selectStatement.executeQuery();
 
         while(resultSet.next()){
-            movie.id = resultSet.getInt("id");
-            movie.title = resultSet.getString("title");
-            movie.duration = resultSet.getDouble("duration");
-            movie.release_date = resultSet.getDate("release_date");
-            movie.score = resultSet.getDouble("score");}
+            movie.setId(resultSet.getInt("id"));
+            movie.setTitle(resultSet.getString("title"));
+            movie.setDuration(resultSet.getDouble("duration"));
+            movie.setRelease_date(resultSet.getDate("release_date"));
+            movie.setScore(resultSet.getDouble("score"));}
 
         //System.out.println(movie.toString());
         return movie;
@@ -39,11 +39,11 @@ public class MovieDAO {
 
         while(resultSet.next()){
             Movie movie = new Movie();
-            movie.id = resultSet.getInt("id");
-            movie.title = resultSet.getString("title");
-            movie.duration = resultSet.getDouble("duration");
-            movie.release_date = resultSet.getDate("release_date");
-            movie.score = resultSet.getDouble("score");
+            movie.setId(resultSet.getInt("id"));
+            movie.setTitle(resultSet.getString("title"));
+            movie.setDuration(resultSet.getDouble("duration"));
+            movie.setRelease_date(resultSet.getDate("release_date"));
+            movie.setScore(resultSet.getDouble("score"));
             movies.add(movie);
         }
 
@@ -55,16 +55,16 @@ public class MovieDAO {
 
         Singleton.getInstance().con.setAutoCommit(false);
         PreparedStatement selectStatement = Singleton.getInstance().con.prepareStatement("INSERT INTO movies VALUES( " + " ?, ?, ?, ?, ?)");
-        selectStatement.setInt(1, movie.id);
-        selectStatement.setString(2, movie.title);
-        selectStatement.setDate(3, (Date) movie.release_date);
-        selectStatement.setDouble(4, movie.duration);
-        selectStatement.setDouble(5,  movie.score);
+        selectStatement.setInt(1, movie.getId());
+        selectStatement.setString(2, movie.getTitle());
+        selectStatement.setDate(3, (Date) movie.getRelease_date());
+        selectStatement.setDouble(4, movie.getDuration());
+        selectStatement.setDouble(5,  movie.getScore());
         selectStatement.addBatch();
 
         int[] updateCounts = selectStatement.executeBatch();
         Singleton.getInstance().con.commit();
         Singleton.getInstance().con.setAutoCommit(true);
-        System.out.println("Movie " + movie.title + " successfully created!");
+        System.out.println("Movie " + movie.getTitle() + " successfully created!");
     }
 }

@@ -4,11 +4,11 @@ import java.util.Date;
 
 public class Movie {
 
-    public Integer id;
-    public String title;
-    public Date release_date;
-    public Double duration;
-    public Double score;
+    private Integer id;
+    private String title;
+    private Date release_date;
+    private Double duration;
+    private Double score;
 
     public Movie() {
     }
@@ -30,6 +30,46 @@ public class Movie {
                 ", duration=" + duration +
                 ", score=" + score +
                 '}';
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setRelease_date(Date release_date) {
+        this.release_date = release_date;
+    }
+
+    public void setDuration(Double duration) {
+        this.duration = duration;
+    }
+
+    public void setScore(Double score) {
+        this.score = score;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public Date getRelease_date() {
+        return release_date;
+    }
+
+    public Double getDuration() {
+        return duration;
+    }
+
+    public Double getScore() {
+        return score;
     }
 }
 

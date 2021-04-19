@@ -18,8 +18,8 @@ public class GenreDAO {
         ResultSet resultSet = selectStatement.executeQuery();
 
         while(resultSet.next()) {
-            genre.id = resultSet.getInt("id");
-            genre.name = resultSet.getString("name");
+            genre.setId(resultSet.getInt("id"));
+            genre.setName(resultSet.getString("name"));
         }
 
         //System.out.println(genre.toString());
@@ -35,8 +35,8 @@ public class GenreDAO {
 
         while(resultSet.next()){
             Genre genre = new Genre();
-            genre.id = resultSet.getInt("id");
-            genre.name = resultSet.getString("name");
+            genre.setId(resultSet.getInt("id"));
+            genre.setName(resultSet.getString("name"));
             genres.add(genre);
         }
 
@@ -48,13 +48,13 @@ public class GenreDAO {
 
         Singleton.getInstance().con.setAutoCommit(false);
         PreparedStatement selectStatement = Singleton.getInstance().con.prepareStatement("INSERT INTO genres VALUES( " + " ?, ?)");
-        selectStatement.setInt(1, genre.id);
-        selectStatement.setString(2, genre.name);
+        selectStatement.setInt(1, genre.getId());
+        selectStatement.setString(2, genre.getName());
         selectStatement.addBatch();
 
         int[] updateCounts = selectStatement.executeBatch();
         Singleton.getInstance().con.commit();
         Singleton.getInstance().con.setAutoCommit(true);
-        System.out.println("Genre " + genre.name + " successfully created!");
+        System.out.println("Genre " + genre.getName() + " successfully created!");
     }
 }

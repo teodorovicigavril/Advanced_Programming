@@ -17,8 +17,8 @@ public class DirectorDAO {
         ResultSet resultSet = selectStatement.executeQuery();
 
         while(resultSet.next()){
-            director.nume = resultSet.getString("title");
-            director.id_movie = resultSet.getInt("id");
+            director.setNume(resultSet.getString("title"));
+            director.setId_movie(resultSet.getInt("id_movie"));
         }
 
         return director;
@@ -33,8 +33,8 @@ public class DirectorDAO {
 
         while(resultSet.next()){
             Director director = new Director();
-            director.nume = resultSet.getString("nume");
-            director.id_movie = resultSet.getInt("id_movie");
+            director.setNume(resultSet.getString("title"));
+            director.setId_movie(resultSet.getInt("id_movie"));
 
             directors.add(director);
         }
@@ -45,13 +45,13 @@ public class DirectorDAO {
 
         Singleton.getInstance().con.setAutoCommit(false);
         PreparedStatement selectStatement = Singleton.getInstance().con.prepareStatement("INSERT INTO directors VALUES( " + " ?, ?)");
-        selectStatement.setString(1, director.nume);
-        selectStatement.setInt(2, director.id_movie);
+        selectStatement.setString(1, director.getNume());
+        selectStatement.setInt(2, director.getId_movie());
         selectStatement.addBatch();
 
         int[] updateCounts = selectStatement.executeBatch();
         Singleton.getInstance().con.commit();
         Singleton.getInstance().con.setAutoCommit(true);
-        System.out.println("Director " + director.nume + " successfully created!");
+        System.out.println("Director " + director.getNume() + " successfully created!");
     }
 }

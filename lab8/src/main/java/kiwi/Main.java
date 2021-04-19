@@ -59,28 +59,28 @@ public class Main {
                         for (String cell : nextRecord) {
 
                             if(index == 1) {
-                                movie.id = NULL;
-                                movie.title = cell;
+                                movie.setId(NULL);
+                                movie.setTitle(cell);
                             }
                             if(index == 4)
-                                movie.release_date = Date.valueOf(cell);
+                                movie.setRelease_date(Date.valueOf(cell));
                             if(index == 5) {
-                                genre.id = NULL;
-                                genre.name = cell;
+                                genre.setId(NULL);
+                                genre.setName(cell);
                             }
                             if(index == 6){
-                                movie.duration = Double.valueOf(cell);
+                                movie.setDuration(Double.valueOf(cell));
                             }
                             if(index == 9){
-                                director.nume = cell;
-                                director.id_movie = movie.id;
+                                director.setNume(cell);
+                                director.setId_movie(movie.getId());
                             }
                             if(index == 12){
-                                actor.id_movie = movie.id;
-                                actor.nume = cell;
+                                actor.setId_movie(movie.getId());
+                                actor.setNume(cell);
                             }
                             if(index == 14){
-                                movie.score = Double.valueOf(cell);
+                                movie.setScore(Double.valueOf(cell));
                             }
 
                             index++;
@@ -89,9 +89,9 @@ public class Main {
 
                         movieDAO.createMovie(movie);
                         genreDAO.createGenre(genre);
-                        actor.id_movie = movieDAO.findByName(movie.title).get(0).id;
+                        actor.setId_movie(movieDAO.findByName(movie.getTitle()).get(0).getId());
                         actorDAO.createActor(actor);
-                        director.id_movie = movieDAO.findByName(movie.title).get(0).id;
+                        director.setId_movie(movieDAO.findByName(movie.getTitle()).get(0).getId());
                         directorDAO.createDirector(director);
 
                         System.out.println();

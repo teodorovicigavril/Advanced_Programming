@@ -2,9 +2,9 @@ package kiwi.model;
 
 public class Actor {
 
-    public String nume;
-    public Integer id_movie;
-    public String personaj;
+    private String nume;
+    private Integer id_movie;
+    private String personaj;
 
     public Actor() {
     }
@@ -22,5 +22,29 @@ public class Actor {
                 ", id_movie=" + id_movie +
                 ", personaj='" + personaj + '\'' +
                 '}';
+    }
+
+    public void setNume(String nume) {
+        this.nume = nume;
+    }
+
+    public void setId_movie(Integer id_movie) {
+        this.id_movie = id_movie;
+    }
+
+    public void setPersonaj(String personaj) {
+        this.personaj = personaj;
+    }
+
+    public String getNume() {
+        return nume;
+    }
+
+    public Integer getId_movie() {
+        return id_movie;
+    }
+
+    public String getPersonaj() {
+        return personaj;
     }
 }

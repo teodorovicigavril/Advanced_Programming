@@ -2,8 +2,8 @@ package kiwi.model;
 
 public class Genre {
 
-    public Integer id;
-    public String name;
+    private Integer id;
+    private String name;
 
     public Genre() {
     }
@@ -19,5 +19,21 @@ public class Genre {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
     }
 }

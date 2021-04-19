@@ -19,8 +19,8 @@ public class ActorDAO {
         ResultSet resultSet = selectStatement.executeQuery();
 
         while(resultSet.next()) {
-            actor.id_movie = resultSet.getInt("id_movie");
-            actor.nume = resultSet.getString("nume");
+            actor.setId_movie(resultSet.getInt("id_movie"));
+            actor.setNume(resultSet.getString("nume"));
         }
 
         return actor;
@@ -35,8 +35,8 @@ public class ActorDAO {
 
         while(resultSet.next()){
             Actor actor = new Actor();
-            actor.id_movie = resultSet.getInt("id");
-            actor.nume = resultSet.getString("nume");
+            actor.setId_movie(resultSet.getInt("id_movie"));
+            actor.setNume(resultSet.getString("nume"));
             actors.add(actor);
         }
 
@@ -47,13 +47,13 @@ public class ActorDAO {
 
         Singleton.getInstance().con.setAutoCommit(false);
         PreparedStatement selectStatement = Singleton.getInstance().con.prepareStatement("INSERT INTO actors VALUES( " + " ?, ?)");
-        selectStatement.setString(1, actor.nume);
-        selectStatement.setInt(2, actor.id_movie);
+        selectStatement.setString(1, actor.getNume());
+        selectStatement.setInt(2, actor.getId_movie());
         selectStatement.addBatch();
 
         int[] updateCounts = selectStatement.executeBatch();
         Singleton.getInstance().con.commit();
         Singleton.getInstance().con.setAutoCommit(true);
-        System.out.println("Actor " + actor.nume + " successfully created!");
+        System.out.println("Actor " + actor.getNume() + " successfully created!");
     }
 }
